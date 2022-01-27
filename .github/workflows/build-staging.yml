@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build_push_image:
+  build_STAGING_image:
     runs-on: ubuntu-latest
 
     steps:
