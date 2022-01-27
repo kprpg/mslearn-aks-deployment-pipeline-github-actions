@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 jobs:
-  build_push_image:
+  build_PROD_image:
     runs-on: ubuntu-20.04
 
     steps:
