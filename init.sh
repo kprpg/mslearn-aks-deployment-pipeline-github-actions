@@ -1,5 +1,9 @@
 #!/bin/bash
 
+az login -t 72f988bf-86f1-41af-91ab-2d7cd011db47
+az login -t 72f988bf-86f1-41af-91ab-2d7cd011db47 --use-device-code -o table
+az account set -s '0c378775-d18a-45bb-b426-3627de556dd1'  ## sub1
+az account set -s 'ce8e7a90-6ff0-4074-8417-a55e6cac276f'  ## sub2
 echo "Defining variables..."
 export RESOURCE_GROUP_NAME=mslearn-gh-pipelines-$RANDOM
 export AKS_NAME=contoso-video
@@ -46,3 +50,8 @@ echo "-> ACR Login Username: $ACR_USERNAME"
 echo "-> ACR Password: $ACR_PASSWORD"
 echo "-> AKS Cluster Name: $ACR_NAME"
 echo "-> AKS DNS Zone Name: $DNS_NAME"
+
+ACR_NAME=ContosoContainerRegistry7080
+az acr list --query "[?contains(resourceGroup, 'mslearn-gh-pipelines')].loginServer" -o table
+az acr repository list --name $ACR_NAME -o table 
+az acr repository show-tags --repository contoso-website --name $ACR_NAME -o table
