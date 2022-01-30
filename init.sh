@@ -55,3 +55,6 @@ ACR_NAME=ContosoContainerRegistry7080
 az acr list --query "[?contains(resourceGroup, 'mslearn-gh-pipelines')].loginServer" -o table
 az acr repository list --name $ACR_NAME -o table 
 az acr repository show-tags --repository contoso-website --name $ACR_NAME -o table
+## Show the DNS of the cluster
+## az aks show -g {resource-group-name} -n {aks-cluster-name} -o tsv --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
+az aks show -g mslearn-gh-pipelines-6500 -n contoso-video -o tsv --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
