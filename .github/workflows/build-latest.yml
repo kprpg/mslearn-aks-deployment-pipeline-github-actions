@@ -40,7 +40,6 @@ jobs:
             helm upgrade \
               --install \
               --create-namespace \
-              --atomic \
               --wait \
               --namespace staging \
               contoso-website \
