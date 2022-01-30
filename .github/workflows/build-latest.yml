@@ -41,6 +41,7 @@ jobs:
               --install \
               --create-namespace \
               --wait \
+              --timeout 30m \
               --namespace staging \
               contoso-website \
               ./kubernetes/contoso-website \
