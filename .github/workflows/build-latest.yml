@@ -19,7 +19,7 @@ jobs:
           tags: latest
   deploy:
      runs-on: ubuntu-latest
-     needs: build_push_image # Will wait for the execution of the previous job
+     needs: build_push_image # Will wait for the execution of the previous job.
      steps:
         - uses: actions/checkout@v2
         - name: Install Helm

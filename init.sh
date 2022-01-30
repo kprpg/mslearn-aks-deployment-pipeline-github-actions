@@ -48,9 +48,12 @@ echo "-> Resource Group Name: $RESOURCE_GROUP_NAME"
 echo "-> ACR Name: $ACR_NAME"
 echo "-> ACR Login Username: $ACR_USERNAME"
 echo "-> ACR Password: $ACR_PASSWORD"
-echo "-> AKS Cluster Name: $ACR_NAME"
+echo "-> AKS Cluster Name: $AKS_NAME"
 echo "-> AKS DNS Zone Name: $DNS_NAME"
 
+## NOTE ACR_NAME in github secrests should be set to FQDN - ie <ACR_NAME>.azurecr.io
+
+RESOURCE_GROUP_NAME=mslearn-gh-pipelines-6500
 ACR_NAME=ContosoContainerRegistry7080
 az acr list --query "[?contains(resourceGroup, 'mslearn-gh-pipelines')].loginServer" -o table
 az acr repository list --name $ACR_NAME -o table 
@@ -58,3 +61,14 @@ az acr repository show-tags --repository contoso-website --name $ACR_NAME -o tab
 ## Show the DNS of the cluster
 ## az aks show -g {resource-group-name} -n {aks-cluster-name} -o tsv --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
 az aks show -g mslearn-gh-pipelines-6500 -n contoso-video -o tsv --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
+## Create a new secret called AZURE_CREDENTIALS. 
+## The value of this secret will be the output of the following command, a JSON object:
+az ad sp create-for-rbac --role Contributor --sdk-auth
+
+## after hem deploy via the github actions, troubleshooting
+kubectl get pods --all-namespaces  ## examine the image for Contoso-website
+kubectl describe pod contoso-website-768db478f4-dpzls  ## examine the logs for the contoso-website-POD
+## get the events
+kubectl get events --all-namespaces  ## all namespaces
+kubectl get events --namespace staging  ## only the staging namespace
+kubectl describe event contoso-website-768db478f4-dpzls  ## examine the events for the contoso-website-POD
